@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>珂华交通局 · 线路查询</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <!-- 自定义CSS -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    
+    <!-- Tailwind 配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4CAF50',
+                        secondary: '#2196F3',
+                        dark: '#333333',
+                        light: '#f5f5f5',
+                        accent: '#FFC107'
+                    },
+                    fontFamily: {
+                        sans: ['SimSun', '宋体', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+    <!-- 导航栏 (与原风格一致，左上角文字已修改) -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <img src="../assets/images/lhmtrlogo.png" alt="绿海铁道" class="h-12 mr-3">
+                    <div>
+                        <!-- 绿海铁道 • 珂华交通局 (均无链接) -->
+                        <span class="text-2xl font-bold text-primary">绿海铁道</span>
+                        <span class="text-2xl font-bold text-primary mx-1">•</span>
+                        <span class="text-2xl font-bold text-primary">珂华交通局</span>
+                        <p class="text-sm text-gray-500">Minecraft 架空铁道公司</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-1">
+                    <!-- 源代码下拉菜单 -->
+                    <div class="sourcecode-switcher hidden md:block">
+                        <button id="sourcecode-btn" class="sourcecode-btn">
+                            <i class="fa fa-code"></i>
+                            <span>绿海源代码</span>
+                            <i class="fa fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div id="sourcecode-dropdown" class="sourcecode-dropdown">
+                            <a href="https://github.com/LHMTR" target="_blank">
+                                <i class="fa fa-github"></i>
+                                GitHub
+                            </a>
+                            <a href="https://gitlab.com/lhmtr" target="_blank">
+                                <i class="fa fa-gitlab"></i>
+                                GitLab
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- 语言切换按钮 (将绑定事件在 language.js 中) -->
+                    <div class="language-switcher">
+                        <button id="language-btn" class="language-btn">
+                            <i class="fa fa-globe"></i>
+                            <span class="hidden md:inline">语言</span>
+                            <i class="fa fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div id="language-dropdown" class="language-dropdown">
+                            <a href="#" data-lang="zh-hans" class="active">
+                                <i class="fa fa-check"></i>
+                                简体中文
+                            </a>
+                            <a href="#" data-lang="zh-hant">
+                                <i class="fa"></i>
+                                繁體中文
+                            </a>
+                            <a href="#" data-lang="en">
+                                <i class="fa"></i>
+                                English
+                            </a>
+                            <a href="#" data-lang="ja">
+                                <i class="fa"></i>
+                                日本語
+                            </a>
+                            <a href="#" data-lang="ko">
+                                <i class="fa"></i>
+                                한국어
+                            </a>
+                        </div>
+                    </div>
+                    
+
+    <!-- 主内容区 -->
+    <main class="container mx-auto px-4 py-8 flex-1">
+        <div class="main-content">
+            <!-- 左侧边栏 (仅含晴都相关链接和源代码分组) -->
+            <div class="sidebar-container">
+                <aside class="sidebar">
+                    <button id="sidebar-toggle" class="sidebar-toggle">
+                        <i class="fa fa-bars sidebar-icon"></i>
+                        <span class="hidden md:inline">折叠侧边栏</span>
+                    </button>
+                    
+                    <div class="sidebar-content">
+                        <!-- 晴都服务器相关链接 -->
+                        <div class="sidebar-group">
+                            <div class="sidebar-group-title" data-group="haruto-links">
+                                <div class="flex items-center">
+                                    <i class="fa fa-server sidebar-icon"></i>
+                                    <span>晴都服务器相关链接</span>
+                                </div>
+                                <i class="fa fa-chevron-down group-toggle text-xs"></i>
+                            </div>
+                            <div class="sidebar-group-content">
+                                <a href="https://tetsudou.haruto.city" target="_blank" class="sidebar-link">
+                                    <i class="fa fa-external-link sidebar-icon"></i>
+                                    <span>晴都交通局主页</span>
+                                </a>
+                                <a href="https://map.haruto.city" target="_blank" class="sidebar-link">
+                                    <i class="fa fa-map sidebar-icon"></i>
+                                    <span>晴都地图</span>
+                                </a>
+                                <a href="https://tetsudou-map.haruto.city" target="_blank" class="sidebar-link">
+                                    <i class="fa fa-map-o sidebar-icon"></i>
+                                    <span>晴都铁道线网图（不推荐使用）</span>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- 源代码 -->
+                        <div class="sidebar-group">
+                            <div class="sidebar-group-title" data-group="source-code">
+                                <div class="flex items-center">
+                                    <i class="fa fa-code sidebar-icon"></i>
+                                    <span>源代码</span>
+                                </div>
+                                <i class="fa fa-chevron-down group-toggle text-xs"></i>
+                            </div>
+                            <div class="sidebar-group-content">
+                                <a href="https://github.com/LHMTR/information" target="_blank" class="sidebar-link">
+                                    <i class="fa fa-github sidebar-icon"></i>
+                                    <span>本网页源代码</span>
+                                </a>
+                                <a href="https://github.com/orgs/LHMTR" target="_blank" class="sidebar-link">
+                                    <i class="fa fa-github sidebar-icon"></i>
+                                    <span>绿海铁道Github</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+
+            <!-- 右侧主内容区：列车交路查询器 -->
+            <div class="content-container">
+                <!-- 顶部：分类按钮 + 搜索框 -->
+                <div class="flex flex-wrap items-center justify-between mb-6 gap-4">
+                    <div class="flex gap-2">
+                        <button id="viewCompanyBtn" class="view-btn active">按公司分类</button>
+                        <button id="viewServiceBtn" class="view-btn">按服务分类</button>
+                    </div>
+                    <div class="relative">
+                        <input type="text" id="searchInput" placeholder="搜索线路、目的地..." class="pl-10 pr-4 py-2 border rounded-full w-64 focus:outline-none focus:border-primary">
+                        <i class="fa fa-search absolute left-3 top-3 text-gray-400"></i>
+                    </div>
+                </div>
+
+                <!-- 列表容器 -->
+                <div id="trainsContainer"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <h3 class="text-xl font-bold mb-2">绿海铁道•珂华交通局</h3>
+                    <p class="text-gray-400">Minecraft 架空铁道公司</p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="https://github.com/LHMTR" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-200">
+                        <i class="fa fa-github text-xl"></i>
+                    </a>
+                    <a href="https://gitlab.com/lhmtr" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-200">
+                        <i class="fa fa-gitlab text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="mt-6 pt-6 border-t border-gray-700 text-center text-gray-400">
+                <p>&copy; 2026 绿海铁道 版权所有</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript文件 -->
+    <script src="../assets/js/language.js"></script>
+    <script src="../assets/js/main.js"></script>
+</body>
+</html>
