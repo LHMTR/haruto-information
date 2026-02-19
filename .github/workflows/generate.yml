@@ -31,37 +31,4 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add information-json/index.json information/
           git diff --quiet && git diff --staged --quiet || git commit -m "Auto-generate index.json and HTML pages [skip ci]"
-          git pushname: Generate Index and HTML Pages
-
-on:
-  push:
-    paths:
-      - 'information-json/**'
-    branches:
-      - main
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
-
-      - name: Generate index.json from detailed JSONs
-        run: python generate_index.py
-
-      - name: Generate HTML pages from index.json
-        run: python generate_pages.py
-
-      - name: Commit and push changes
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add information-json/index.json information/
-          git diff --quiet && git diff --staged --quiet || git commit -m "Auto-generate index.json and HTML pages [skip ci]"
           git push
