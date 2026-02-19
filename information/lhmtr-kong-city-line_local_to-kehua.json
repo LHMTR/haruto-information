@@ -10,7 +10,7 @@
   "service_color": "#00CCFF",
   "builder": "DarkmasterXPGD|DarkMasterXPGD|DarkMasterXPGD|DarkMasterXPGD|DarkMasterXPGD",
   "depot": "珂华中央车厂|珂華中央車廠|Kehua Central Depot|珂華中央車庫|",
-  "introduction": "暂无介绍|暫無介紹|There is no introduction yet.|しばらく紹介していない|",
+  "introduction": "暂无介绍|暫無介紹|There is no introduction yet|しばらく紹介していない|",
   "train": false,
   "stations": {
   "kita_funami": {
