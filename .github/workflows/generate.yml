@@ -3,7 +3,7 @@ name: Generate Index and HTML Pages
 on:
   push:
     paths:
-      - 'information/**'
+      - 'information-json/**'
     branches:
       - main
 
@@ -25,10 +25,13 @@ jobs:
       - name: Generate HTML pages from index.json
         run: python generate_pages.py
 
-      - name: Commit and push changes
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add information/index.json information/
-          git diff --quiet && git diff --staged --quiet || git commit -m "Auto-generate index.json and HTML pages [skip ci]"
-          git push
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "Auto-generate index.json and HTML pages [skip ci]"
+          title: "Auto-generated: Update index.json and HTML pages"
+          body: "This PR was automatically created by GitHub Actions after changes to `information-json/`."
+          branch: auto-update-${{ github.run_number }}
+          base: main
+          delete-branch: true
