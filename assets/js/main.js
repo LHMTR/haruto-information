@@ -107,8 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ----- 列表页逻辑（含不筛选按钮）-----
     if (document.getElementById('trainsContainer')) {
-        // 修正：使用相对路径，指向当前目录下的 information/index.json
-        const DATA_SOURCE_URL = 'information/index.json';  // ✅ 正确路径
+        const DATA_SOURCE_URL = 'information/index.json';  // 相对路径
         let allLines = [];
         let filteredLines = [];
         let currentGroupBy = 'none';  // 默认不筛选
@@ -122,7 +121,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const preferredLang = getPreferredLanguage(); // 来自 language.js
 
-        // 加载数据
         async function loadData() {
             container.innerHTML = '<div class="loading">加载中...</div>';
             try {
@@ -137,7 +135,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-        // 按公司代码首字母分组
         function groupByCompany(lines) {
             const groups = {};
             lines.forEach(line => {
@@ -149,7 +146,6 @@ document.addEventListener('DOMContentLoaded', function() {
             return groups;
         }
 
-        // 按服务类型首字母分组
         function groupByService(lines) {
             const groups = {};
             lines.forEach(line => {
@@ -167,10 +163,21 @@ document.addEventListener('DOMContentLoaded', function() {
             items.forEach(item => {
                 const lineName = getBilingualText(item.line_name, preferredLang);
                 const dest = getBilingualText(item.destination, preferredLang);
-                const serviceType = getBilingualText(item.service_type, preferredLang);
                 const serviceName = getBilingualText(item.service, preferredLang);
                 const company = getBilingualText(item.company, preferredLang);
                 const builder = getBilingualText(item.builder, preferredLang);
+                const depot = getBilingualText(item.depot, preferredLang); // 获取车厂
+
+                // 构建第二行内容：服务名称（粗体） + 公司 + 建设者 + 车厂（如果存在）
+                let secondLineHtml = `
+                    <span class="service-color-dot" style="background-color: ${item.service_color || '#aaa'};"></span>
+                    <span class="service-name-bold">${serviceName.primary}</span>
+                    <span class="service-company">${company.primary}</span>
+                    <span class="builder">${builder.primary}</span>
+                `;
+                if (depot.primary) {
+                    secondLineHtml += `<span class="service-depot">${depot.primary}</span>`;
+                }
 
                 cardsHtml += `
                     <div class="train-card" data-linecode="${item.line_code}">
@@ -181,14 +188,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <span class="destination">${dest.primary}</span>
                             </div>
                             <div class="service-row">
-                                <span class="service-color-dot" style="background-color: ${item.service_color || '#aaa'};"></span>
-                                <span class="service-type">${serviceType.primary}</span>
-                                <span class="service-name">${serviceName.primary}</span>
-                                <span class="service-company">${company.primary}</span>
-                                <span class="builder">${builder.primary}</span>
-                            </div>
-                            <div class="secondary-lang text-xs text-gray-500 mt-1">
-                                ${lineName.secondary} · ${dest.secondary} · ${serviceType.secondary} ${serviceName.secondary} · ${company.secondary} ${builder.secondary}
+                                ${secondLineHtml}
                             </div>
                         </div>
                     </div>
@@ -197,11 +197,9 @@ document.addEventListener('DOMContentLoaded', function() {
             return cardsHtml;
         }
 
-        // 主渲染函数
         function render() {
             let data = filteredLines;
 
-            // 搜索过滤
             if (searchTerm) {
                 const term = searchTerm.toLowerCase();
                 data = data.filter(line => {
@@ -219,13 +217,11 @@ document.addEventListener('DOMContentLoaded', function() {
             let html = '';
 
             if (currentGroupBy === 'none') {
-                // 不分组：按 line_code 自然排序（字母+数字）
                 const sortedData = [...data].sort((a, b) => 
                     a.line_code.localeCompare(b.line_code, undefined, { numeric: true })
                 );
                 html = renderCards(sortedData);
             } else {
-                // 按公司或服务分组
                 let groups = currentGroupBy === 'company' ? groupByCompany(data) : groupByService(data);
                 const sortedLetters = Object.keys(groups).sort((a, b) => a.localeCompare(b));
 
@@ -237,7 +233,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
             container.innerHTML = html;
 
-            // 卡片点击跳转
             document.querySelectorAll('.train-card').forEach(card => {
                 card.addEventListener('click', () => {
                     const code = card.dataset.linecode;
@@ -246,7 +241,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
-        // 按钮事件
         if (viewNoneBtn) {
             viewNoneBtn.addEventListener('click', () => {
                 currentGroupBy = 'none';
@@ -284,7 +278,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
-        // 启动
         loadData();
     }
 });
