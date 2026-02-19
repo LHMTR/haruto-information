@@ -13,6 +13,13 @@
   "introduction": "暂无介绍|暫無介紹|There is no introduction yet.|しばらく紹介していない|",
   "train": false,
   "stations": {
+  "kita_funami": {
+      "station_name": "北船见|北船見|Kita-Funami|北船見|",
+      "station_line_number": "KC",
+      "station_number": 19,
+      "platform": "1",
+      "time": "0min20s"
+    },
     "haigang_village": {
       "station_name": "海港村庄|海港村莊|Haigang Village|海港の村|",
       "station_line_number": "KC",
@@ -42,7 +49,7 @@
       "time": "1min0s"
     },
     "airport_west": {
-      "station_name": "机场西|機場西|Airport West|空港西|",
+      "station_name": "机场西|機場西|Airport West|空港西|"
       "station_line_number": "KC",
       "station_number": 14,
       "platform": "12",
