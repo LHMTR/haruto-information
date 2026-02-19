@@ -13,6 +13,13 @@
   "introduction": "暂无介绍|暫無介紹|There is no introduction yet|しばらく紹介していない|",
   "train": false,
   "stations": {
+  "funami": {
+      "station_name": "船见|船見|Funami|船見|",
+      "station_line_number": "KC",
+      "station_number": 20,
+      "platform": "1",
+      "time": "0min30s"
+    },
   "kita_funami": {
       "station_name": "北船见|北船見|Kita-Funami|北船見|",
       "station_line_number": "KC",
