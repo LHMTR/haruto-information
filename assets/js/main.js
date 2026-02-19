@@ -168,20 +168,25 @@ document.addEventListener('DOMContentLoaded', function() {
                 const builder = getBilingualText(item.builder, preferredLang);
                 const depot = getBilingualText(item.depot, preferredLang); // 获取车厂
 
-                // 构建第二行内容：服务名称（粗体） + 公司 + 建设者 + 车厂（如果存在）
+                // 构建建设者字符串
+                const builderText = builder.primary ? `由 ${builder.primary} 建设` : '';
+
+                // 构建第二行内容：服务名称（粗体） + 公司 + 建设者（带格式） + 车厂（如果存在）
                 let secondLineHtml = `
                     <span class="service-color-dot" style="background-color: ${item.service_color || '#aaa'};"></span>
                     <span class="service-name-bold">${serviceName.primary}</span>
                     <span class="service-company">${company.primary}</span>
-                    <span class="builder">${builder.primary}</span>
                 `;
+                if (builderText) {
+                    secondLineHtml += `<span class="service-builder">${builderText}</span>`;
+                }
                 if (depot.primary) {
                     secondLineHtml += `<span class="service-depot">${depot.primary}</span>`;
                 }
 
                 cardsHtml += `
                     <div class="train-card" data-linecode="${item.line_code}">
-                        <div class="card-color-strip" style="background-color: ${item.color || '#888'};"></div>
+                        <div class="card-color-strip" style="background: ${getLineColorGradient(item)};"></div>
                         <div class="card-content">
                             <div class="main-row">
                                 <span class="line-name">${lineName.primary}</span>
@@ -195,6 +200,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 `;
             });
             return cardsHtml;
+        }
+
+        // 辅助函数：生成线路颜色渐变（支持最多三种颜色）
+        function getLineColorGradient(item) {
+            const colors = [item.line_color_1, item.line_color_2, item.line_color_3].filter(c => c);
+            if (colors.length === 0) return '#888';
+            if (colors.length === 1) return colors[0];
+            // 平均分配宽度
+            const total = colors.length;
+            const percentage = 100 / total;
+            const stops = colors.map((c, i) => `${c} ${i * percentage}%, ${c} ${(i + 1) * percentage}%`).join(', ');
+            return `linear-gradient(to bottom, ${stops})`;
         }
 
         function render() {

@@ -11,7 +11,7 @@
     <!-- Font Awesome -->
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
     
-    <!-- 自定义CSS (路径改为 assets/) -->
+    <!-- 自定义CSS -->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     
     <!-- Tailwind 配置 -->
@@ -39,14 +39,14 @@
     <header class="bg-white shadow-md dark:bg-gray-800 dark:shadow-gray-700 transition-colors">
         <div class="container mx-auto px-4 py-3">
             <div class="flex justify-between items-center">
-                <!-- 左侧 LOGO 和标题 (logo 路径改为 assets/) -->
+                <!-- 左侧 LOGO 和标题 -->
                 <div class="flex items-center">
                     <img src="assets/images/lhmtrlogo.png" alt="绿海铁道" class="h-12 mr-3">
                     <div>
                         <span class="text-2xl font-bold text-primary dark:text-green-400">绿海铁道</span>
                         <span class="text-2xl font-bold text-primary dark:text-green-400 mx-1">•</span>
                         <span class="text-2xl font-bold text-primary dark:text-green-400">珂华交通局</span>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">晴都服务器服务查询</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Minecraft 架空铁道公司</p>
                     </div>
                 </div>
                 
@@ -64,7 +64,6 @@
                             <i class="fa fa-chevron-down ml-1 text-xs"></i>
                         </button>
                         <div id="language-dropdown" class="language-dropdown dark:bg-gray-800 dark:border-gray-700">
-                            <!-- 保持 data-lang 属性，href 可保留 # 或改为 javascript:void(0) -->
                             <a href="#" data-lang="zh-hans"><i class="fa fa-check"></i> 简体中文</a>
                             <a href="#" data-lang="zh-hant"><i class="fa"></i> 繁體中文</a>
                             <a href="#" data-lang="en"><i class="fa"></i> English</a>
@@ -170,7 +169,7 @@
                 <!-- 顶部：分类按钮 + 搜索框 -->
                 <div class="flex flex-wrap items-center justify-between mb-6 gap-4">
                     <div class="flex gap-2">
-                        <button id="viewNoneBtn" class="view-btn">不进行筛选</button>
+                        <button id="viewNoneBtn" class="view-btn active">不进行筛选</button>
                         <button id="viewCompanyBtn" class="view-btn">按公司分类</button>
                         <button id="viewServiceBtn" class="view-btn">按服务分类</button>
                     </div>
@@ -204,12 +203,12 @@
                 </div>
             </div>
             <div class="mt-6 pt-6 border-t border-gray-700 text-center text-gray-400">
-                <p>&copy; 2026 绿海铁道 版权所有</p>
+                <p>&copy; 2025 绿海铁道 版权所有</p>
             </div>
         </div>
     </footer>
 
-    <!-- JavaScript文件 (路径改为 assets/) -->
+    <!-- JavaScript文件 -->
     <script src="assets/js/language.js"></script>
     <script src="assets/js/main.js"></script>
     <script>
