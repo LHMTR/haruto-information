@@ -107,7 +107,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ----- 列表页逻辑（含不筛选按钮）-----
     if (document.getElementById('trainsContainer')) {
-        const DATA_SOURCE_URL = '/information/index.json';  // 数据源路径
+        // 修正：使用相对路径，指向当前目录下的 information/index.json
+        const DATA_SOURCE_URL = 'information/index.json';  // ✅ 正确路径
         let allLines = [];
         let filteredLines = [];
         let currentGroupBy = 'none';  // 默认不筛选
@@ -126,13 +127,13 @@ document.addEventListener('DOMContentLoaded', function() {
             container.innerHTML = '<div class="loading">加载中...</div>';
             try {
                 const res = await fetch(DATA_SOURCE_URL);
-                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                if (!res.ok) throw new Error(`HTTP ${res.status} - ${res.statusText}`);
                 allLines = await res.json();
                 filteredLines = allLines;
                 render();
             } catch (e) {
-                container.innerHTML = '<div class="error">数据加载失败，请稍后重试。</div>';
-                console.error(e);
+                console.error('数据加载失败:', e);
+                container.innerHTML = `<div class="error">数据加载失败: ${e.message}</div>`;
             }
         }
 
@@ -246,34 +247,42 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // 按钮事件
-        viewNoneBtn.addEventListener('click', () => {
-            currentGroupBy = 'none';
-            viewNoneBtn.classList.add('active');
-            viewCompanyBtn.classList.remove('active');
-            viewServiceBtn.classList.remove('active');
-            render();
-        });
+        if (viewNoneBtn) {
+            viewNoneBtn.addEventListener('click', () => {
+                currentGroupBy = 'none';
+                viewNoneBtn.classList.add('active');
+                viewCompanyBtn.classList.remove('active');
+                viewServiceBtn.classList.remove('active');
+                render();
+            });
+        }
 
-        viewCompanyBtn.addEventListener('click', () => {
-            currentGroupBy = 'company';
-            viewNoneBtn.classList.remove('active');
-            viewCompanyBtn.classList.add('active');
-            viewServiceBtn.classList.remove('active');
-            render();
-        });
+        if (viewCompanyBtn) {
+            viewCompanyBtn.addEventListener('click', () => {
+                currentGroupBy = 'company';
+                viewNoneBtn.classList.remove('active');
+                viewCompanyBtn.classList.add('active');
+                viewServiceBtn.classList.remove('active');
+                render();
+            });
+        }
 
-        viewServiceBtn.addEventListener('click', () => {
-            currentGroupBy = 'service';
-            viewNoneBtn.classList.remove('active');
-            viewCompanyBtn.classList.remove('active');
-            viewServiceBtn.classList.add('active');
-            render();
-        });
+        if (viewServiceBtn) {
+            viewServiceBtn.addEventListener('click', () => {
+                currentGroupBy = 'service';
+                viewNoneBtn.classList.remove('active');
+                viewCompanyBtn.classList.remove('active');
+                viewServiceBtn.classList.add('active');
+                render();
+            });
+        }
 
-        searchInput.addEventListener('input', (e) => {
-            searchTerm = e.target.value;
-            render();
-        });
+        if (searchInput) {
+            searchInput.addEventListener('input', (e) => {
+                searchTerm = e.target.value;
+                render();
+            });
+        }
 
         // 启动
         loadData();
