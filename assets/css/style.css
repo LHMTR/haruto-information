@@ -800,3 +800,29 @@ footer {
 .dark footer a:hover {
     color: white;
 }
+/* 服务名称粗体（用于替换原来的 service_type） */
+.service-name-bold {
+    font-weight: 600;
+    color: #1f2e3f;
+}
+.dark .service-name-bold {
+    color: #e2e8f0;
+}
+
+/* 车厂样式，与公司、建设者保持一致 */
+.service-depot {
+    font-weight: 400;
+    color: #5f7a95;
+}
+.service-depot::before {
+    content: "·";
+    margin: 0 4px;
+    color: #8a9fb0;
+    font-weight: 600;
+}
+.dark .service-depot {
+    color: #cbd5e0;
+}
+.dark .service-depot::before {
+    color: #a0aec0;
+}
