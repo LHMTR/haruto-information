@@ -1,6 +1,6 @@
 {
   "line_code": "lhmtr-kc-local1",
-  "line_name": "绿铁港城线|綠鐵港城綫|LHMTR Kong City Libe|緑鉄港城線|",
+  "line_name": "绿铁港城线|綠鐵港城綫|LHMTR Kong City Line|緑鉄港城線|",
   "destination": "珂华|珂華|Kehua|珂華|",
   "company_code": "lhmtr",
   "company": "绿海铁道|綠海鐵道|LHMTR|緑海鉄道|",
@@ -10,7 +10,7 @@
   "service_color": "#00CCFF",
   "builder": "DarkmasterXPGD|DarkMasterXPGD|DarkMasterXPGD|DarkMasterXPGD|DarkMasterXPGD",
   "depot": "珂华中央车厂|珂華中央車廠|Kehua Central Depot|珂華中央車庫|",
-  "introduction": "暂无介绍|暫無介紹|There is not introduction yet.|しばらく紹介していない|",
+  "introduction": "暂无介绍|暫無介紹|There is no introduction yet.|しばらく紹介していない|",
   "train": false,
   "stations": {
     "haigang_village": {
@@ -19,28 +19,28 @@
       "station_number": 18,
       "platform": "5",
       "time": "1min0s"
-    }
+    },
     "spring_winter_forest": {
       "station_name": "春冬林|春冬林|Spring Winter Forest|春冬林|",
       "station_line_number": "KC",
       "station_number": 17,
       "platform": "1",
       "time": "0min20s"
-    }
+    },
     "watao_village": {
       "station_name": "瓦陶村|瓦陶村|Watao Village|瓦陶村|",
       "station_line_number": "KC",
       "station_number": 16,
       "platform": "1",
       "time": "0min20s"
-    }
+    },
     "hoi_yan_kiu": {
       "station_name": "海印桥|海印橋|Hoi Yan Kiu|海印橋|",
       "station_line_number": "KC",
       "station_number": 15,
       "platform": "5",
       "time": "1min0s"
-    }
+    },
     "airport_west": {
       "station_name": "机场西|機場西|Airport West|空港西|",
       "station_line_number": "KC",
