@@ -14,7 +14,7 @@
   "train": false,
   "stations": {
   "funami": {
-      "station_name": "船见|船見|Funami|船見|1",
+      "station_name": "船见|船見|Funami|船見|",
       "station_line_number": "KC",
       "station_number": 20,
       "platform": "1",
