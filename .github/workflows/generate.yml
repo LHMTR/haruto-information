@@ -27,14 +27,16 @@ jobs:
       - name: Generate HTML pages from index.json
         run: python generate_pages.py
 
-      - name: Pull latest changes
+      - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git pull --rebase origin main
-
-      - name: Commit and push changes
-        run: |
           git add information/index.json pages/
           git diff --quiet && git diff --staged --quiet || git commit -m "Auto-generate index.json and HTML pages [skip ci]"
-          git push
+
+      - name: Pull latest changes with rebase
+        run: |
+          git pull --rebase origin main
+
+      - name: Push changes
+        run: git push
