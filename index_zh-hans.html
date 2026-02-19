@@ -11,8 +11,8 @@
     <!-- Font Awesome -->
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
     
-    <!-- 自定义CSS -->
-    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    <!-- 自定义CSS (路径改为 assets/) -->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     
     <!-- Tailwind 配置 -->
     <script>
@@ -35,77 +35,79 @@
     </script>
 </head>
 <body class="bg-gray-100 min-h-screen flex flex-col">
-    <!-- 导航栏 (与原风格一致，左上角文字已修改) -->
-    <header class="bg-white shadow-md">
+    <!-- 导航栏 (仅语言和光暗按钮) -->
+    <header class="bg-white shadow-md dark:bg-gray-800 dark:shadow-gray-700 transition-colors">
         <div class="container mx-auto px-4 py-3">
             <div class="flex justify-between items-center">
+                <!-- 左侧 LOGO 和标题 (logo 路径改为 assets/) -->
                 <div class="flex items-center">
-                    <img src="../assets/images/lhmtrlogo.png" alt="绿海铁道" class="h-12 mr-3">
+                    <img src="assets/images/lhmtrlogo.png" alt="绿海铁道" class="h-12 mr-3">
                     <div>
-                        <!-- 绿海铁道 • 珂华交通局 (均无链接) -->
-                        <span class="text-2xl font-bold text-primary">绿海铁道</span>
-                        <span class="text-2xl font-bold text-primary mx-1">•</span>
-                        <span class="text-2xl font-bold text-primary">珂华交通局</span>
-                        <p class="text-sm text-gray-500">Minecraft 架空铁道公司</p>
+                        <span class="text-2xl font-bold text-primary dark:text-green-400">绿海铁道</span>
+                        <span class="text-2xl font-bold text-primary dark:text-green-400 mx-1">•</span>
+                        <span class="text-2xl font-bold text-primary dark:text-green-400">珂华交通局</span>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Minecraft 架空铁道公司</p>
                     </div>
                 </div>
                 
-                <div class="flex items-center space-x-1">
-                    <!-- 源代码下拉菜单 -->
-                    <div class="sourcecode-switcher hidden md:block">
-                        <button id="sourcecode-btn" class="sourcecode-btn">
-                            <i class="fa fa-code"></i>
-                            <span>绿海源代码</span>
-                            <i class="fa fa-chevron-down ml-1 text-xs"></i>
-                        </button>
-                        <div id="sourcecode-dropdown" class="sourcecode-dropdown">
-                            <a href="https://github.com/LHMTR" target="_blank">
-                                <i class="fa fa-github"></i>
-                                GitHub
-                            </a>
-                            <a href="https://gitlab.com/lhmtr" target="_blank">
-                                <i class="fa fa-gitlab"></i>
-                                GitLab
-                            </a>
-                        </div>
-                    </div>
+                <!-- 右侧：仅语言切换和光暗模式按钮 -->
+                <div class="flex items-center space-x-2">
+                    <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" title="切换主题">
+                        <i class="fa fa-sun-o text-xl text-gray-600 dark:hidden"></i>
+                        <i class="fa fa-moon-o text-xl text-gray-300 hidden dark:inline-block"></i>
+                    </button>
                     
-                    <!-- 语言切换按钮 (将绑定事件在 language.js 中) -->
                     <div class="language-switcher">
-                        <button id="language-btn" class="language-btn">
+                        <button id="language-btn" class="language-btn dark:text-gray-300 dark:hover:bg-gray-700">
                             <i class="fa fa-globe"></i>
                             <span class="hidden md:inline">语言</span>
                             <i class="fa fa-chevron-down ml-1 text-xs"></i>
                         </button>
-                        <div id="language-dropdown" class="language-dropdown">
-                            <a href="#" data-lang="zh-hans" class="active">
-                                <i class="fa fa-check"></i>
-                                简体中文
-                            </a>
-                            <a href="#" data-lang="zh-hant">
-                                <i class="fa"></i>
-                                繁體中文
-                            </a>
-                            <a href="#" data-lang="en">
-                                <i class="fa"></i>
-                                English
-                            </a>
-                            <a href="#" data-lang="ja">
-                                <i class="fa"></i>
-                                日本語
-                            </a>
-                            <a href="#" data-lang="ko">
-                                <i class="fa"></i>
-                                한국어
-                            </a>
+                        <div id="language-dropdown" class="language-dropdown dark:bg-gray-800 dark:border-gray-700">
+                            <!-- 保持 data-lang 属性，href 可保留 # 或改为 javascript:void(0) -->
+                            <a href="#" data-lang="zh-hans"><i class="fa fa-check"></i> 简体中文</a>
+                            <a href="#" data-lang="zh-hant"><i class="fa"></i> 繁體中文</a>
+                            <a href="#" data-lang="en"><i class="fa"></i> English</a>
+                            <a href="#" data-lang="ja"><i class="fa"></i> 日本語</a>
+                            <a href="#" data-lang="ko"><i class="fa"></i> 한국어</a>
                         </div>
                     </div>
                     
+                    <div class="md:hidden">
+                        <button id="mobile-menu-button" class="text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-green-400">
+                            <i class="fa fa-bars text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 移动端菜单 -->
+            <div id="mobile-menu" class="md:hidden hidden pt-3 pb-2 border-t border-gray-200 dark:border-gray-700 mt-2">
+                <div class="py-2 px-4 flex items-center justify-between">
+                    <span class="text-gray-700 dark:text-gray-300">主题</span>
+                    <button id="mobile-theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
+                        <i class="fa fa-sun-o text-gray-600 dark:hidden"></i>
+                        <i class="fa fa-moon-o text-gray-300 hidden dark:inline-block"></i>
+                    </button>
+                </div>
+                <div class="py-2 px-4 flex items-center justify-between">
+                    <span class="text-gray-700 dark:text-gray-300">语言</span>
+                    <select id="mobile-language-select" class="border rounded p-1 dark:bg-gray-700 dark:text-white dark:border-gray-600">
+                        <option value="zh-hans">简体中文</option>
+                        <option value="zh-hant">繁體中文</option>
+                        <option value="en">English</option>
+                        <option value="ja">日本語</option>
+                        <option value="ko">한국어</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </header>
 
     <!-- 主内容区 -->
     <main class="container mx-auto px-4 py-8 flex-1">
         <div class="main-content">
-            <!-- 左侧边栏 (仅含晴都相关链接和源代码分组) -->
+            <!-- 左侧边栏 (仅晴都和源代码) -->
             <div class="sidebar-container">
                 <aside class="sidebar">
                     <button id="sidebar-toggle" class="sidebar-toggle">
@@ -188,7 +190,7 @@
         <div class="container mx-auto px-4">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="mb-4 md:mb-0">
-                    <h3 class="text-xl font-bold mb-2">绿海铁道•珂华交通局</h3>
+                    <h3 class="text-xl font-bold mb-2">绿海铁道</h3>
                     <p class="text-gray-400">Minecraft 架空铁道公司</p>
                 </div>
                 <div class="flex space-x-4">
@@ -201,13 +203,39 @@
                 </div>
             </div>
             <div class="mt-6 pt-6 border-t border-gray-700 text-center text-gray-400">
-                <p>&copy; 2026 绿海铁道 版权所有</p>
+                <p>&copy; 2025 绿海铁道 版权所有</p>
             </div>
         </div>
     </footer>
 
-    <!-- JavaScript文件 -->
-    <script src="../assets/js/language.js"></script>
-    <script src="../assets/js/main.js"></script>
+    <!-- JavaScript文件 (路径改为 assets/) -->
+    <script src="assets/js/language.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+        // 光暗模式切换逻辑
+        (function() {
+            const themeToggle = document.getElementById('theme-toggle');
+            const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
+            const htmlElement = document.documentElement;
+            
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            if (savedTheme === 'dark') {
+                htmlElement.classList.add('dark');
+            }
+
+            function toggleTheme() {
+                if (htmlElement.classList.contains('dark')) {
+                    htmlElement.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    htmlElement.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                }
+            }
+
+            if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
+            if (mobileThemeToggle) mobileThemeToggle.addEventListener('click', toggleTheme);
+        })();
+    </script>
 </body>
 </html>

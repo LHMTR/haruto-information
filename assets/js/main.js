@@ -1,4 +1,4 @@
-// main.js - 原有功能（移动端菜单、侧边栏折叠、激活状态等）+ 列表页逻辑
+// main.js - 原有功能 + 列表页逻辑（无 train 字段）
 
 document.addEventListener('DOMContentLoaded', function() {
     // ----- 原有功能 -----
@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 侧边栏整体折叠
     const sidebarToggle = document.getElementById('sidebar-toggle');
     if (sidebarToggle) {
         sidebarToggle.addEventListener('click', function() {
@@ -25,7 +24,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 侧边栏分组折叠
     document.querySelectorAll('.sidebar-group-title').forEach(title => {
         title.addEventListener('click', function() {
             const group = this.parentElement;
@@ -33,7 +31,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // 平滑滚动
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
@@ -50,7 +47,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // 导航栏激活状态 (滚动时)
     window.addEventListener('scroll', function() {
         const sections = document.querySelectorAll('section[id]');
         const scrollPosition = window.scrollY + 100;
@@ -69,7 +65,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // 关闭移动端菜单当点击链接时
     document.querySelectorAll('#mobile-menu a').forEach(link => {
         link.addEventListener('click', function() {
             const mobileMenu = document.getElementById('mobile-menu');
@@ -79,7 +74,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // 设置当前页面侧边栏链接为激活状态
     function setActiveSidebarLink() {
         const currentPage = window.location.pathname.split('/').pop() || 'index.html';
         document.querySelectorAll('.sidebar-link').forEach(link => {
@@ -94,7 +88,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 设置当前页面导航链接为激活状态
     function setActiveNavLink() {
         const currentPage = window.location.pathname.split('/').pop() || 'index.html';
         document.querySelectorAll('.nav-link').forEach(link => {
@@ -112,12 +105,12 @@ document.addEventListener('DOMContentLoaded', function() {
     setActiveSidebarLink();
     setActiveNavLink();
 
-    // ----- 新增：列表页逻辑（仅在当前页面包含相应元素时执行）-----
+    // ----- 列表页逻辑（无 train 字段）-----
     if (document.getElementById('trainsContainer')) {
-        const DATA_SOURCE_URL = '/information/index.json'; // 汇总文件路径
+        const DATA_SOURCE_URL = '/information-json/index.json';
         let allLines = [];
         let filteredLines = [];
-        let currentGroupBy = 'company'; // 'company' 或 'service'
+        let currentGroupBy = 'company';
         let searchTerm = '';
 
         const container = document.getElementById('trainsContainer');
@@ -125,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const viewServiceBtn = document.getElementById('viewServiceBtn');
         const searchInput = document.getElementById('searchInput');
 
-        const preferredLang = getPreferredLanguage(); // 从 language.js 引入
+        const preferredLang = getPreferredLanguage();
 
         async function loadData() {
             container.innerHTML = '<div class="loading">加载中...</div>';
@@ -207,7 +200,6 @@ document.addEventListener('DOMContentLoaded', function() {
                                     <span class="service-company">${company.primary}</span>
                                     <span class="builder">${builder.primary}</span>
                                 </div>
-                                <!-- 第二语言用小字显示 -->
                                 <div class="secondary-lang text-xs text-gray-500 mt-1">
                                     ${lineName.secondary} · ${dest.secondary} · ${serviceType.secondary} ${serviceName.secondary} · ${company.secondary} ${builder.secondary}
                                 </div>
@@ -218,11 +210,10 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             container.innerHTML = html;
 
-            // 点击卡片跳转
             document.querySelectorAll('.train-card').forEach(card => {
                 card.addEventListener('click', () => {
                     const code = card.dataset.linecode;
-                    window.location.href = `./${code}.html?lang=${preferredLang}`;
+                    window.location.href = `information/${code}.html?lang=${preferredLang}`;
                 });
             });
         }
