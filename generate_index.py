@@ -1,7 +1,7 @@
 import os
 import json
 
-JSON_DIR = 'information-json'
+JSON_DIR = 'information'
 INDEX_FILE = os.path.join(JSON_DIR, 'index.json')
 EXCLUDE = ['index.json']
 

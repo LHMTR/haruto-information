@@ -104,7 +104,7 @@
             const preferredLang = getPreferredLanguage();
             const path = window.location.pathname;
             const lineCode = path.split('/').pop().replace('.html', '');
-            const dataUrl = `/information-json/${lineCode}.json`;
+            const dataUrl = `/information/${lineCode}.json`;
 
             const backButtonContainer = document.getElementById('back-button-container');
             if (backButtonContainer) {
@@ -204,7 +204,7 @@
             }
 
             function setupVariationDropdown(data) {
-                fetch('/information-json/index.json')
+                fetch('/information/index.json')
                     .then(res => res.json())
                     .then(allLines => {
                         const sameLineServices = allLines.filter(item => item.line_code === data.line_code);

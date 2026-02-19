@@ -3,7 +3,7 @@ name: Generate Index and HTML Pages
 on:
   push:
     paths:
-      - 'information-json/**'
+      - 'information/**'
     branches:
       - main
 
@@ -29,6 +29,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add information-json/index.json information/
+          git add information/index.json information/
           git diff --quiet && git diff --staged --quiet || git commit -m "Auto-generate index.json and HTML pages [skip ci]"
           git push

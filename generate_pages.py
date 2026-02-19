@@ -1,6 +1,6 @@
 import os, json
 
-JSON_DIR = 'information-json'
+JSON_DIR = 'information'
 INDEX_FILE = os.path.join(JSON_DIR, 'index.json')
 OUTPUT_DIR = 'information'
 TEMPLATE = os.path.join(OUTPUT_DIR, 'template.html')

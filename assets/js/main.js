@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ----- 列表页逻辑（无 train 字段）-----
     if (document.getElementById('trainsContainer')) {
-        const DATA_SOURCE_URL = '/information-json/index.json';
+        const DATA_SOURCE_URL = '/information/index.json';
         let allLines = [];
         let filteredLines = [];
         let currentGroupBy = 'company';
