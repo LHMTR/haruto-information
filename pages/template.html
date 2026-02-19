@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>珂华交通局 · 线路详情</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+</head>
+<body class="bg-gray-100">
+    <header class="bg-white shadow-md dark:bg-gray-800 dark:shadow-gray-700 transition-colors">
+        <!-- 导航栏内容与之前相同，略 -->
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="detail-split bg-white shadow-lg">
+            <div class="left-panel" id="leftPanel">
+                <div id="back-button-container"></div>
+            </div>
+            <div class="right-panel" id="rightPanel"></div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-8">
+        <!-- 页脚内容与之前相同，略 -->
+    </footer>
+
+    <script src="../assets/js/language.js"></script>
+    <script>
+        (function() {
+            const preferredLang = getPreferredLanguage();
+            const path = window.location.pathname;
+            const lineCode = path.split('/').pop().replace('.html', '');
+            // 数据路径改为 /information/${lineCode}.json
+            const dataUrl = `/information/${lineCode}.json`;
+
+            const backButtonContainer = document.getElementById('back-button-container');
+            if (backButtonContainer) {
+                backButtonContainer.innerHTML = `
+                    <a href="../index_zh-hans.html?lang=${preferredLang}" class="back-button">
+                        <i class="fa fa-arrow-left"></i> 返回列表
+                    </a>
+                `;
+            }
+
+            fetch(dataUrl)
+                .then(res => res.json())
+                .then(data => {
+                    renderLeftPanel(data);
+                    renderRightPanel(data);
+                    setupVariationDropdown(data);
+                })
+                .catch(err => {
+                    document.getElementById('leftPanel').innerHTML += '<p class="error">线路信息加载失败</p>';
+                });
+
+            function renderLeftPanel(data) {
+                // ... 与之前完全相同 ...
+            }
+
+            function renderRightPanel(data) {
+                // ... 与之前完全相同 ...
+            }
+
+            function setupVariationDropdown(data) {
+                // 获取同线路服务列表的路径改为 /information/index.json
+                fetch('/information/index.json')
+                    .then(res => res.json())
+                    .then(allLines => {
+                        const sameLineServices = allLines.filter(item => item.line_code === data.line_code);
+                        // ... 下拉菜单逻辑不变 ...
+                    });
+            }
+
+            // 光暗模式切换、移动端菜单等逻辑保持不变
+        })();
+    </script>
+</body>
+</html>

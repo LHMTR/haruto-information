@@ -1,24 +1,31 @@
-import os, json
+import os
+import json
 
-JSON_DIR = 'information'
+JSON_DIR = 'information'               # JSON 数据目录
 INDEX_FILE = os.path.join(JSON_DIR, 'index.json')
-OUTPUT_DIR = 'information'
+OUTPUT_DIR = 'pages'                    # 详情页输出目录
 TEMPLATE = os.path.join(OUTPUT_DIR, 'template.html')
 
 def generate_pages():
-    with open(INDEX_FILE, encoding='utf-8') as f:
+    with open(INDEX_FILE, 'r', encoding='utf-8') as f:
         lines = json.load(f)
-    with open(TEMPLATE, encoding='utf-8') as f:
+
+    with open(TEMPLATE, 'r', encoding='utf-8') as f:
         template = f.read()
+
     os.makedirs(OUTPUT_DIR, exist_ok=True)
+
     for line in lines:
         code = line.get('line_code')
-        if not code: continue
-        out = os.path.join(OUTPUT_DIR, f'{code}.html')
+        if not code:
+            print(f"警告：线路缺少 line_code，跳过：{line}")
+            continue
+        out = os.path.join(OUTPUT_DIR, f"{code}.html")
         with open(out, 'w', encoding='utf-8') as f:
             f.write(template)
-        print(f'生成 {out}')
-    print('完成')
+        print(f"生成 {out}")
+
+    print("所有详情页生成完成！")
 
 if __name__ == '__main__':
     generate_pages()

@@ -1,7 +1,7 @@
 import os
 import json
 
-JSON_DIR = 'information'
+JSON_DIR = 'information'               # JSON 数据目录
 INDEX_FILE = os.path.join(JSON_DIR, 'index.json')
 EXCLUDE = ['index.json']
 
@@ -16,10 +16,7 @@ def generate_index():
                 data = json.load(fp)
         except json.JSONDecodeError as e:
             print(f"❌ JSON 格式错误在文件 {f}: {e}")
-            print(f"   错误位置: 第 {e.lineno} 行, 第 {e.colno} 列 (字符 {e.pos})")
-            # 抛出异常以终止工作流，或可注释掉下面一行以跳过此文件继续
-            raise  # 终止执行，便于您看到错误后修复
-            # continue  # 如果希望跳过错误文件，可改用 continue
+            raise
         except Exception as e:
             print(f"读取文件 {f} 失败：{e}")
             continue
