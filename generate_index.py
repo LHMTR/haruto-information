@@ -1,11 +1,17 @@
 import os
 import json
 
-INPUT_DIR = 'information-json'          # 原始JSON存放目录
-OUTPUT_FILE = 'information/index.json'  # 生成的汇总文件路径
+INPUT_DIR = 'information'                # 原始JSON存放目录（与需求一致）
+OUTPUT_FILE = 'information/index.json'   # 生成的汇总文件路径
 EXCLUDE = ['index.json']
 
 def generate_index():
+    # 检查输入目录是否存在
+    if not os.path.exists(INPUT_DIR):
+        os.makedirs(INPUT_DIR)
+        print(f"创建目录 {INPUT_DIR}，但其中没有JSON文件。")
+        # 如果目录为空，后续不会生成任何线路，但可以继续（输出空数组）
+    
     lines = []
     for f in os.listdir(INPUT_DIR):
         if not f.endswith('.json') or f in EXCLUDE:
@@ -21,7 +27,7 @@ def generate_index():
             print(f"读取文件 {f} 失败：{e}")
             continue
 
-        # 提取首页所需的字段（包括可选字段）
+        # 提取首页所需字段（包括可选字段）
         required = ['line_code', 'line_name', 'destination', 'company_code',
                     'company', 'service_type', 'service', 'line_color_1', 'service_color', 'builder', 'train']
         entry = {}
