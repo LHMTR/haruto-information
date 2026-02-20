@@ -121,6 +121,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const preferredLang = getPreferredLanguage(); // 来自 language.js
 
+        // 十六进制颜色正则
+        const hexColorRegex = /^#([0-9A-F]{3}|[0-9A-F]{6})$/i;
+
         async function loadData() {
             container.innerHTML = '<div class="loading">加载中...</div>';
             try {
@@ -157,6 +160,27 @@ document.addEventListener('DOMContentLoaded', function() {
             return groups;
         }
 
+        // 辅助函数：过滤有效的十六进制颜色
+        function getValidColors(item) {
+            const colors = [];
+            if (item.line_color_1 && hexColorRegex.test(item.line_color_1)) colors.push(item.line_color_1);
+            if (item.line_color_2 && hexColorRegex.test(item.line_color_2)) colors.push(item.line_color_2);
+            if (item.line_color_3 && hexColorRegex.test(item.line_color_3)) colors.push(item.line_color_3);
+            return colors;
+        }
+
+        // 生成线路颜色渐变（基于有效颜色数量平均分配）
+        function getLineColorGradient(item) {
+            const colors = getValidColors(item);
+            if (colors.length === 0) return '#888';
+            if (colors.length === 1) return colors[0];
+            // 平均分配宽度
+            const total = colors.length;
+            const percentage = 100 / total;
+            const stops = colors.map((c, i) => `${c} ${i * percentage}%, ${c} ${(i + 1) * percentage}%`).join(', ');
+            return `linear-gradient(to bottom, ${stops})`;
+        }
+
         // 渲染卡片（不分组时使用）
         function renderCards(items) {
             let cardsHtml = '';
@@ -166,12 +190,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 const serviceName = getBilingualText(item.service, preferredLang);
                 const company = getBilingualText(item.company, preferredLang);
                 const builder = getBilingualText(item.builder, preferredLang);
-                const depot = getBilingualText(item.depot, preferredLang); // 获取车厂
+                const depot = getBilingualText(item.depot, preferredLang);
 
                 // 构建建设者字符串
                 const builderText = builder.primary ? `由 ${builder.primary} 建设` : '';
 
-                // 构建第二行内容：服务名称（粗体） + 公司 + 建设者（带格式） + 车厂（如果存在）
+                // 构建第二行内容：服务名称（粗体） + 公司 + 建设者 + 车厂（如果存在）
                 let secondLineHtml = `
                     <span class="service-color-dot" style="background-color: ${item.service_color || '#aaa'};"></span>
                     <span class="service-name-bold">${serviceName.primary}</span>
@@ -184,6 +208,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     secondLineHtml += `<span class="service-depot">${depot.primary}</span>`;
                 }
 
+                // 列车警告
+                const noTrainWarning = (item.train === false) ? `<div class="no-train-warning"><i class="fa fa-exclamation-triangle"></i> ${getNoTrainMessage(preferredLang)}</div>` : '';
+
                 cardsHtml += `
                     <div class="train-card" data-linecode="${item.line_code}">
                         <div class="card-color-strip" style="background: ${getLineColorGradient(item)};"></div>
@@ -195,23 +222,12 @@ document.addEventListener('DOMContentLoaded', function() {
                             <div class="service-row">
                                 ${secondLineHtml}
                             </div>
+                            ${noTrainWarning}
                         </div>
                     </div>
                 `;
             });
             return cardsHtml;
-        }
-
-        // 辅助函数：生成线路颜色渐变（支持最多三种颜色）
-        function getLineColorGradient(item) {
-            const colors = [item.line_color_1, item.line_color_2, item.line_color_3].filter(c => c);
-            if (colors.length === 0) return '#888';
-            if (colors.length === 1) return colors[0];
-            // 平均分配宽度
-            const total = colors.length;
-            const percentage = 100 / total;
-            const stops = colors.map((c, i) => `${c} ${i * percentage}%, ${c} ${(i + 1) * percentage}%`).join(', ');
-            return `linear-gradient(to bottom, ${stops})`;
         }
 
         function render() {

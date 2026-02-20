@@ -6,6 +6,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const lineCode = path.split('/').pop().replace('.html', '');
     const dataUrl = `/information/${lineCode}.json`;
 
+    // 十六进制颜色正则
+    const hexColorRegex = /^#([0-9A-F]{3}|[0-9A-F]{6})$/i;
+
     // 返回按钮
     const backBtnContainer = document.getElementById('back-button-container');
     if (backBtnContainer) {
@@ -26,11 +29,20 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('leftPanelDetail').innerHTML = '<p class="error">线路信息加载失败</p>';
         });
 
+    // 过滤有效的线路颜色
+    function getValidLineColors(data) {
+        const colors = [];
+        if (data.line_color_1 && hexColorRegex.test(data.line_color_1)) colors.push(data.line_color_1);
+        if (data.line_color_2 && hexColorRegex.test(data.line_color_2)) colors.push(data.line_color_2);
+        if (data.line_color_3 && hexColorRegex.test(data.line_color_3)) colors.push(data.line_color_3);
+        return colors;
+    }
+
     function renderFixedHeader(data) {
         // 线路名称
         const lineName = getBilingualText(data.line_name, preferredLang);
         document.getElementById('line-name-display').innerHTML = lineName.primary;
-        document.getElementById('line-name-display').style.fontSize = 'clamp(1.5rem, 5vw, 2.5rem)'; // 自适应
+        document.getElementById('line-name-display').style.fontSize = 'clamp(1.5rem, 5vw, 2.5rem)';
 
         // 服务信息行：服务颜色竖条 + 服务名称 + 公司 + 建设者
         const serviceName = getBilingualText(data.service, preferredLang);
@@ -48,14 +60,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         document.getElementById('service-info-row').innerHTML = serviceHtml;
 
-        // 彩色横杠 (最多三种颜色平均分配)
-        const colors = [data.line_color_1, data.line_color_2, data.line_color_3].filter(c => c);
+        // 彩色横杠 (基于有效颜色平均分配)
+        const colors = getValidLineColors(data);
         const colorBar = document.getElementById('color-bar');
         colorBar.innerHTML = '';
         if (colors.length === 0) {
             colorBar.style.backgroundColor = '#888';
+            colorBar.style.display = 'block'; // 恢复为块级
         } else if (colors.length === 1) {
             colorBar.style.backgroundColor = colors[0];
+            colorBar.style.display = 'block';
         } else {
             colorBar.style.display = 'flex';
             colors.forEach((c, i) => {
@@ -100,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const stationNumber = s.station_number || '';
             const stopTime = s.stop_time || '';
             const platform = s.platform || '';
-            const note = s.note || '';
+            const note = s.note || '';  // note 非必填，如果不存在则为空字符串
 
             // 圆形样式
             const circleStyle = directly 
