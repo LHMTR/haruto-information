@@ -1,7 +1,7 @@
 import os
 import json
 
-INDEX_FILE = 'information/index.json'   # 汇总文件路径（由 generate_index.py 生成）
+INDEX_FILE = 'information/index.json'   # 汇总文件路径
 OUTPUT_DIR = 'pages'
 TEMPLATE = os.path.join(OUTPUT_DIR, 'template.html')
 
