@@ -1,16 +1,16 @@
 import os
 import json
 
-JSON_DIR = 'information'               # JSON 数据目录
-INDEX_FILE = os.path.join(JSON_DIR, 'index.json')
+INPUT_DIR = 'information-json'          # 原始JSON存放目录
+OUTPUT_FILE = 'information/index.json'  # 生成的汇总文件路径
 EXCLUDE = ['index.json']
 
 def generate_index():
     lines = []
-    for f in os.listdir(JSON_DIR):
+    for f in os.listdir(INPUT_DIR):
         if not f.endswith('.json') or f in EXCLUDE:
             continue
-        filepath = os.path.join(JSON_DIR, f)
+        filepath = os.path.join(INPUT_DIR, f)
         try:
             with open(filepath, 'r', encoding='utf-8') as fp:
                 data = json.load(fp)
@@ -21,19 +21,25 @@ def generate_index():
             print(f"读取文件 {f} 失败：{e}")
             continue
 
+        # 提取首页所需的字段（包括可选字段）
         required = ['line_code', 'line_name', 'destination', 'company_code',
-                    'company', 'service_type', 'service', 'color', 'service_color', 'builder']
-        if not all(k in data for k in required):
-            print(f"跳过 {f}：缺少必要字段")
+                    'company', 'service_type', 'service', 'line_color_1', 'service_color', 'builder', 'train']
+        entry = {}
+        for field in required:
+            if field in data:
+                entry[field] = data[field]
+        if 'line_code' not in entry:
+            print(f"跳过 {f}：缺少 line_code")
             continue
-
-        lines.append({k: data[k] for k in required})
+        lines.append(entry)
 
     lines.sort(key=lambda x: x['line_code'])
 
-    with open(INDEX_FILE, 'w', encoding='utf-8') as fp:
+    # 确保输出目录存在
+    os.makedirs(os.path.dirname(OUTPUT_FILE), exist_ok=True)
+    with open(OUTPUT_FILE, 'w', encoding='utf-8') as fp:
         json.dump(lines, fp, ensure_ascii=False, indent=2)
-    print(f"✅ 已生成 {INDEX_FILE}，共 {len(lines)} 条线路。")
+    print(f"✅ 已生成 {OUTPUT_FILE}，共 {len(lines)} 条线路。")
 
 if __name__ == '__main__':
     generate_index()
