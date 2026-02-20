@@ -1,66 +1,37 @@
 {
   "line_code": "lhmtr-kc-local1",
-  "line_name": "绿铁港城线|綠鐵港城綫|LHMTR Kong City Line|緑鉄港城線|",
-  "destination": "往珂华|往珂華|To Kehua|珂華行き|",
+  "line_name": "绿铁港城线",
+  "destination": "往珂华",
   "company_code": "lhmtr",
-  "company": "绿海铁道|綠海鐵道|LHMTR|緑海鉄道|",
+  "company": 绿海铁道",
   "service_type": "local",
-  "service": "各停|各停|Local|各駅停車|",
-  "line_color1": "#FF8A00",
-  "service_color": "#00CCFF",
-  "builder": "DarkMasterXPGD|DarkMasterXPGD|DarkMasterXPGD|DarkMasterXPGD|DarkMasterXPGD",
-  "depot": "珂华中央车厂|珂華中央車廠|Kehua Central Depot|珂華中央車庫|",
-  "introduction": "暂无介绍|暫無介紹|There is no introduction yet|しばらく紹介していない|",
+  "service": "全程各停",
+  "line_color_1": "#FF8A00",
+  "service_color": "00CCFF",
+  "builder": "DarkMasterXPGD",
+  "depot": "珂华中央车厂",
+  "introduction": "暂无",
   "train": false,
   "stations": {
-  "funami": {
-      "station_name": "船见|船見|Funami|船見|",
-      "station_line_number": "KC",
-      "station_number": 20,
-      "platform": "1",
-      "time": "0min30s"
-    },
-  "kita_funami": {
-      "station_name": "北船见|北船見|Kita-Funami|北船見|",
-      "station_line_number": "KC",
-      "station_number": 19,
-      "platform": "1",
-      "time": "0min20s"
-    },
     "haigang_village": {
-      "station_name": "海港村庄|海港村莊|Haigang Village|海港の村|",
-      "station_line_number": "KC",
+      "station_name": "海港村庄",
+      "directly": false,
+      "color1": "#FF8A00",
+      "line_number": "KC",
       "station_number": 18,
-      "platform": "5",
-      "time": "1min0s"
-    },
+      "stop_time": "1min0s",
+      "platform": "5"
+      // note 省略，不显示
+    }
     "spring_winter_forest": {
-      "station_name": "春冬林|春冬林|Spring Winter Forest|春冬林|",
-      "station_line_number": "KC",
+      "station_name": "春冬林",
+      "directly": false,
+      "color1": "#FF8A00",
+      "line_number": "KC",
       "station_number": 17,
-      "platform": "1",
-      "time": "0min20s"
-    },
-    "watao_village": {
-      "station_name": "瓦陶村|瓦陶村|Watao Village|瓦陶村|",
-      "station_line_number": "KC",
-      "station_number": 16,
-      "platform": "1",
-      "time": "0min20s"
-    },
-    "hoi_yan_kiu": {
-      "station_name": "海印桥|海印橋|Hoi Yan Kiu|海印橋|",
-      "station_line_number": "KC",
-      "station_number": 15,
-      "platform": "5",
-      "time": "1min0s"
-    },
-    "airport_west": {
-      "station_name": "机场西|機場西|Airport West|空港西|",
-      "station_line_number": "KC",
-      "station_number": 14,
-      "platform": "12",
-      "time": "1min0s"
+      "stop_time": "0min30s",
+      "platform": "1"
+      // note 省略，不显示
     }
   }
 }
