@@ -11,7 +11,7 @@
   "service_color": "#00CCFF",
   "builder": "DarkMasterXPGD|DarkMasterXPGD",
   "depot": "珂华中央车厂|Kehua Central Depot",
-  "introduction": "暂无|There is not any introduction yet", 
+  "introduction": "暂无|There is not any introduction yet.", 
   "train": false,
   "stations": {
     "haigang_village": {
