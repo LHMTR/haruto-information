@@ -107,7 +107,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ----- 列表页逻辑（含不筛选按钮）-----
     if (document.getElementById('trainsContainer')) {
-        const DATA_SOURCE_URL = 'information/index.json';  // 相对路径
+        // 修改为绝对路径，适用于子路径 /haruto-information/
+        const DATA_SOURCE_URL = '/haruto-information/information/index.json';
         let allLines = [];
         let filteredLines = [];
         let currentGroupBy = 'none';  // 默认不筛选
