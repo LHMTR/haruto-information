@@ -996,3 +996,19 @@ footer {
 .dark footer a:hover {
     color: white;
 }
+/* 调小线路卡片 */
+.train-card .card-content {
+    padding: 14px 18px; /* 原为 18px 22px */
+}
+.train-card .line-name,
+.train-card .destination {
+    font-size: 1.5rem; /* 原为 1.7rem */
+}
+.train-card .service-row {
+    font-size: 0.9rem; /* 原为 1rem */
+    gap: 6px; /* 原为 8px */
+}
+.train-card .service-color-dot {
+    width: 5px; /* 原为 6px */
+    height: 18px; /* 原为 20px */
+}
