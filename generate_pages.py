@@ -1,14 +1,15 @@
 import os
 import json
+from collections import OrderedDict
 
-JSON_DIR = 'information'               # JSON 数据目录
+JSON_DIR = 'information-json'
 INDEX_FILE = os.path.join(JSON_DIR, 'index.json')
-OUTPUT_DIR = 'pages'                    # 详情页输出目录
+OUTPUT_DIR = 'pages'
 TEMPLATE = os.path.join(OUTPUT_DIR, 'template.html')
 
 def generate_pages():
     with open(INDEX_FILE, 'r', encoding='utf-8') as f:
-        lines = json.load(f)
+        lines = json.load(f, object_pairs_hook=OrderedDict)
 
     with open(TEMPLATE, 'r', encoding='utf-8') as f:
         template = f.read()
@@ -18,7 +19,6 @@ def generate_pages():
     for line in lines:
         code = line.get('line_code')
         if not code:
-            print(f"警告：线路缺少 line_code，跳过：{line}")
             continue
         out = os.path.join(OUTPUT_DIR, f"{code}.html")
         with open(out, 'w', encoding='utf-8') as f:
