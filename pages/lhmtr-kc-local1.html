@@ -9,10 +9,11 @@
     <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
 </head>
 <body class="bg-gray-100">
-    <!-- 顶栏 (与首页一致) -->
+    <!-- 顶栏（新增横向链接） -->
     <header class="bg-white shadow-md dark:bg-gray-800 dark:shadow-gray-700 transition-colors">
         <div class="container mx-auto px-4 py-3">
             <div class="flex justify-between items-center">
+                <!-- 左侧 LOGO 和标题（颜色已统一） -->
                 <div class="flex items-center">
                     <img src="../assets/images/lhmtrlogo.png" alt="绿海铁道" class="h-12 mr-3">
                     <div>
@@ -22,11 +23,22 @@
                         <p class="text-sm text-gray-500 dark:text-gray-400">Minecraft 架空铁道公司</p>
                     </div>
                 </div>
-                <div class="flex items-center space-x-2">
+                
+                <!-- 中间/右侧：横向链接 + 语言/主题按钮 -->
+                <div class="flex items-center space-x-4">
+                    <!-- 横向链接（只显示两个） -->
+                    <div class="hidden md:flex space-x-2">
+                        <a href="https://tetsudou.haruto.city" target="_blank" class="nav-link">晴都市交通局</a>
+                        <a href="https://map.haruto.city" target="_blank" class="nav-link">晴都服务器地图</a>
+                    </div>
+                    
+                    <!-- 光暗模式切换 -->
                     <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
                         <i class="fa fa-sun-o text-xl text-gray-600 dark:hidden"></i>
                         <i class="fa fa-moon-o text-xl text-gray-300 hidden dark:inline-block"></i>
                     </button>
+                    
+                    <!-- 语言切换 -->
                     <div class="language-switcher">
                         <button id="language-btn" class="language-btn dark:text-gray-300 dark:hover:bg-gray-700">
                             <i class="fa fa-globe"></i><span class="hidden md:inline">语言</span><i class="fa fa-chevron-down ml-1 text-xs"></i>
@@ -39,6 +51,8 @@
                             <a href="#" data-lang="ko"><i class="fa"></i> 한국어</a>
                         </div>
                     </div>
+                    
+                    <!-- 移动端菜单按钮 -->
                     <div class="md:hidden">
                         <button id="mobile-menu-button" class="text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-green-400">
                             <i class="fa fa-bars text-xl"></i>
@@ -46,7 +60,13 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- 移动端菜单（包含横向链接） -->
             <div id="mobile-menu" class="md:hidden hidden pt-3 pb-2 border-t border-gray-200 dark:border-gray-700 mt-2">
+                <div class="py-2 px-4 flex flex-col space-y-2">
+                    <a href="https://tetsudou.haruto.city" target="_blank" class="text-gray-700 dark:text-gray-300 hover:text-primary">晴都市交通局</a>
+                    <a href="https://map.haruto.city" target="_blank" class="text-gray-700 dark:text-gray-300 hover:text-primary">晴都服务器地图</a>
+                </div>
                 <div class="py-2 px-4 flex items-center justify-between">
                     <span class="text-gray-700 dark:text-gray-300">主题</span>
                     <button id="mobile-theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
@@ -70,11 +90,10 @@
 
     <main class="container mx-auto px-4 py-8">
         <div class="detail-split bg-white shadow-lg">
-            <!-- 左侧面板 (新设计) -->
+            <!-- 左侧面板（无侧边栏，仅保留内容） -->
             <div class="left-panel-detail" id="leftPanelDetail">
-                <!-- 固定头部区 -->
                 <div class="detail-header-fixed">
-                    <!-- 返回按钮 -->
+                    <!-- 返回按钮容器 -->
                     <div id="back-button-container" class="mb-2"></div>
                     <!-- 线路名称（自适应） -->
                     <h1 id="line-name-display" class="line-name-detail"></h1>
@@ -92,10 +111,9 @@
                 <!-- 可滑动车站列表区 -->
                 <div class="stations-scrollable" id="stationsScrollable"></div>
             </div>
-            <!-- 右侧面板：嵌入搜索系统 (与首页完全一致) -->
+            <!-- 右侧面板：嵌入搜索系统（不变） -->
             <div class="right-panel-detail">
                 <div class="content-container">
-                    <!-- 分类按钮 + 搜索框 -->
                     <div class="flex flex-wrap items-center justify-between mb-6 gap-4">
                         <div class="flex gap-2">
                             <button id="viewNoneBtn" class="view-btn active">不进行筛选</button>
@@ -107,14 +125,13 @@
                             <i class="fa fa-search absolute left-3 top-3 text-gray-400"></i>
                         </div>
                     </div>
-                    <!-- 列表容器 -->
                     <div id="trainsContainer"></div>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- 页脚 (与首页一致) -->
+    <!-- 页脚（不变） -->
     <footer class="bg-gray-800 text-white py-8">
         <div class="container mx-auto px-4">
             <div class="flex flex-col md:flex-row justify-between items-center">
@@ -137,12 +154,10 @@
         </div>
     </footer>
 
-    <!-- JavaScript文件 -->
     <script src="../assets/js/language.js"></script>
-    <script src="../assets/js/main.js"></script>  <!-- 用于右列 -->
-    <script src="../assets/js/detail.js"></script> <!-- 用于左列 -->
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/detail.js"></script>
     <script>
-        // 光暗模式切换 (复用首页逻辑)
         (function() {
             const themeToggle = document.getElementById('theme-toggle');
             const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
