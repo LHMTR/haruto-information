@@ -7,6 +7,7 @@
   "service_type": "local",
   "service": "全程各停",
   "line_color_1": "#FF8A00",
+  "line_color_2": "#E9DB0B",
   "service_color": "00CCFF",
   "builder": "DarkMasterXPGD",
   "depot": "珂华中央车厂",
@@ -29,6 +30,16 @@
       "line_number": "KC",
       "station_number": 17,
       "stop_time": "0min30s",
+      "platform": "1"
+    }
+    "spring_winter_forest": {
+      "station_name": "珂华机场",
+      "directly": true,
+      "color1": "#FF8A00",
+      "color2": "#E9DB0B",
+      "line_number": "KA",
+      "station_number": 03,
+      "stop_time": "2min0s",
       "platform": "1"
     }
   }
