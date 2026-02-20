@@ -19,7 +19,7 @@
       "directly": false,
       "color1": "#FF8A00",
       "line_number": "KC",
-      "station_number": 18,
+      "station_number": "18",
       "stop_time": "1min0s",
       "platform": "5"
     },
@@ -28,7 +28,7 @@
       "directly": false,
       "color1": "#FF8A00",
       "line_number": "KC",
-      "station_number": 17,
+      "station_number": "17",
       "stop_time": "0min30s",
       "platform": "1"
     },
@@ -38,7 +38,7 @@
       "color1": "#FF8A00",
       "color2": "#E9DB0B",
       "line_number": "KA",
-      "station_number": 03,
+      "station_number": "03",
       "stop_time": "2min0s",
       "platform": "1"
     }
