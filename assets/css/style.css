@@ -1012,3 +1012,141 @@ footer {
     width: 5px; /* 原为 6px */
     height: 18px; /* 原为 20px */
 }
+/* ===== 重构的车站列表样式 ===== */
+.stations-vertical {
+    display: flex;
+    flex-direction: column;
+    align-items: center;      /* 整体居中 */
+    gap: 8px;                 /* 车站与连接线之间的间距 */
+    padding-left: 30px;       /* 为备注留出左侧空间 */
+}
+
+.station-item-vertical {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    width: 100%;
+    position: relative;       /* 用于定位备注 */
+}
+
+.station-left {
+    width: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.station-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid #333;   /* 边框不包括直径 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: monospace;
+    font-size: 12px;
+    line-height: 1.2;
+    z-index: 2;
+    position: relative;
+    background-size: 100% 100%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.dark .station-circle {
+    border-color: #aaa;
+}
+
+/* 圆形内数字样式 */
+.station-circle .line-number {
+    font-weight: bold;
+    margin-bottom: 2px;
+    z-index: 3;
+    color: #333;
+}
+.station-circle .station-number {
+    font-weight: bold;
+    z-index: 3;
+    color: #333;
+}
+.dark .station-circle .line-number,
+.dark .station-circle .station-number {
+    color: #eee;
+}
+
+/* 连接线样式 */
+.station-connector {
+    width: 4px;
+    height: 30px;
+    margin-left: 30px;        /* 与圆形对齐 */
+    background: linear-gradient(to bottom, #aaa 0%, #aaa 50%, #888 50%, #888 100%);
+    border-radius: 2px;
+    align-self: flex-start;
+}
+
+/* 右侧信息区 */
+.station-right {
+    flex: 1;
+    min-width: 0;
+}
+.station-name-primary {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+.station-name-secondary {
+    font-size: 0.9rem;
+    color: #666;
+}
+.station-platform {
+    font-size: 0.85rem;
+    color: #444;
+    margin-top: 4px;
+}
+.station-time {
+    font-size: 0.9rem;
+    color: #777;
+    white-space: nowrap;
+    align-self: center;
+    margin-right: 10px;
+}
+
+/* 备注样式 */
+.station-note {
+    position: absolute;
+    left: -30px;              /* 显示在左侧预留空间 */
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.85rem;
+    color: black;
+    background: rgba(255,255,255,0.9);
+    padding: 2px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.dark .station-note {
+    background: #333;
+    color: #eee;
+    border-color: #555;
+}
+
+/* 右侧面板高度适应（不变） */
+.right-panel-detail {
+    width: 50%;
+    padding: 20px;
+    overflow-y: auto;
+    max-height: calc(100vh - 200px);
+}
+
+/* 暗色模式适配 */
+.dark .station-name-secondary {
+    color: #aaa;
+}
+.dark .station-platform {
+    color: #bbb;
+}
+.dark .station-time {
+    color: #999;
+}
