@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const preferredLang = getPreferredLanguage();
     const path = window.location.pathname;
     const lineCode = path.split('/').pop().replace('.html', '');
-    const dataUrl = `/information/${lineCode}.json`;
+    const dataUrl = `/haruto-information/information/${lineCode}.json`;
 
     // 十六进制颜色正则
     const hexColorRegex = /^#([0-9A-F]{3}|[0-9A-F]{6})$/i;
