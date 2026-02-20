@@ -8,7 +8,7 @@
   "service": "全程各停",
   "line_color_1": "#FF8A00",
   "line_color_2": "#E9DB0B",
-  "service_color": "00CCFF",
+  "service_color": "#00CCFF",
   "builder": "DarkMasterXPGD",
   "depot": "珂华中央车厂",
   "introduction": "暂无",
@@ -32,7 +32,7 @@
       "stop_time": "0min30s",
       "platform": "1"
     },
-    "spring_winter_forest": {
+    "kehua_airport": {
       "station_name": "珂华机场",
       "directly": true,
       "color1": "#FF8A00",
