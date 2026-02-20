@@ -698,7 +698,203 @@ footer {
     color: #68d391;
 }
 
-/* ===== 暗色模式样式 ===== */
+/* ===== 新增：服务名称粗体、建设者格式、车厂样式 ===== */
+.service-name-bold {
+    font-weight: 600;
+    color: #1f2e3f;
+}
+.dark .service-name-bold {
+    color: #e2e8f0;
+}
+
+.service-builder {
+    font-weight: 400;
+    color: #5f7a95;
+}
+.service-builder::before {
+    content: "·";
+    margin: 0 4px;
+    color: #8a9fb0;
+    font-weight: 600;
+}
+.dark .service-builder {
+    color: #cbd5e0;
+}
+.dark .service-builder::before {
+    color: #a0aec0;
+}
+
+.service-depot {
+    font-weight: 400;
+    color: #5f7a95;
+}
+.service-depot::before {
+    content: "·";
+    margin: 0 4px;
+    color: #8a9fb0;
+    font-weight: 600;
+}
+.dark .service-depot {
+    color: #cbd5e0;
+}
+.dark .service-depot::before {
+    color: #a0aec0;
+}
+
+/* ===== 详情页左列专用样式 ===== */
+.left-panel-detail {
+    width: 50%;
+    border-right: 2px solid #333;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 200px);
+    overflow: hidden;
+}
+.detail-header-fixed {
+    padding: 20px;
+    background-color: white;
+    border-bottom: 1px solid #ddd;
+    flex-shrink: 0;
+}
+.stations-scrollable {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+.line-name-detail {
+    font-weight: 700;
+    line-height: 1.2;
+    word-break: break-word;
+}
+.color-bar {
+    height: 8px;
+    border-radius: 20px;
+    margin: 15px 0;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+    display: flex;
+}
+.section-divider {
+    border: none;
+    border-top: 2px solid #333;
+    width: 90%;
+    margin: 15px auto;
+}
+.stations-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.station-item-vertical {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    position: relative;
+}
+.station-left {
+    position: relative;
+    width: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.station-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: monospace;
+    font-size: 12px;
+    line-height: 1.2;
+    z-index: 2;
+    position: relative;
+    background-size: 100% 100%;
+}
+.station-circle::after {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 1px;
+    background-color: #333;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+.station-line {
+    width: 4px;
+    height: 40px; /* 需要根据实际间距调整，这里用固定值，实际可能需要动态计算，但示例中已使用JS动态创建 */
+    background: linear-gradient(to bottom, #aaa 0%, #aaa 50%, #888 50%, #888 100%);
+    margin-top: -5px;
+    z-index: 1;
+}
+.station-right {
+    flex: 1;
+}
+.station-name-primary {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+.station-name-secondary {
+    font-size: 0.9rem;
+    color: #666;
+}
+.station-platform {
+    font-size: 0.85rem;
+    color: #444;
+    margin-top: 4px;
+}
+.station-time {
+    font-size: 0.9rem;
+    color: #777;
+    white-space: nowrap;
+    align-self: center;
+}
+.station-note {
+    position: absolute;
+    left: 0;
+    transform: translateX(-110%);
+    font-size: 0.85rem;
+    color: black;
+    background: rgba(255,255,255,0.8);
+    padding: 2px 6px;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+.right-panel-detail {
+    width: 50%;
+    padding: 20px;
+    overflow-y: auto;
+    max-height: calc(100vh - 200px);
+}
+
+/* ===== 暗色模式适配（追加）===== */
+.dark .station-name-secondary {
+    color: #aaa;
+}
+.dark .station-platform {
+    color: #bbb;
+}
+.dark .station-time {
+    color: #999;
+}
+.dark .station-note {
+    background: #333;
+    color: #eee;
+}
+.dark .section-divider {
+    border-top-color: #666;
+}
+.dark .station-circle::after {
+    background-color: #eee;
+}
+
+/* ===== 暗色模式整体覆盖（保持之前）===== */
 .dark body {
     background-color: #1a202c;
     color: #e2e8f0;
@@ -799,185 +995,4 @@ footer {
 }
 .dark footer a:hover {
     color: white;
-}
-/* 服务名称粗体（用于替换原来的 service_type） */
-.service-name-bold {
-    font-weight: 600;
-    color: #1f2e3f;
-}
-.dark .service-name-bold {
-    color: #e2e8f0;
-}
-
-/* 车厂样式，与公司、建设者保持一致 */
-.service-depot {
-    font-weight: 400;
-    color: #5f7a95;
-}
-.service-depot::before {
-    content: "·";
-    margin: 0 4px;
-    color: #8a9fb0;
-    font-weight: 600;
-}
-.dark .service-depot {
-    color: #cbd5e0;
-}
-.dark .service-depot::before {
-    color: #a0aec0;
-}
-/* ===== 详情页左列专用样式 ===== */
-.left-panel-detail {
-    width: 50%;
-    border-right: 2px solid #333;
-    display: flex;
-    flex-direction: column;
-    height: calc(100vh - 200px);
-    overflow: hidden;
-}
-.detail-header-fixed {
-    padding: 20px;
-    background-color: white;
-    border-bottom: 1px solid #ddd;
-    flex-shrink: 0;
-}
-.stations-scrollable {
-    flex: 1;
-    overflow-y: auto;
-    padding: 20px;
-}
-.line-name-detail {
-    font-weight: 700;
-    line-height: 1.2;
-    word-break: break-word;
-}
-.color-bar {
-    height: 8px;
-    border-radius: 20px;
-    margin: 15px 0;
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
-    overflow: hidden;
-    display: flex;
-}
-.section-divider {
-    border: none;
-    border-top: 2px solid #333;
-    width: 90%;
-    margin: 15px auto;
-}
-.stations-vertical {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-.station-item-vertical {
-    display: flex;
-    align-items: flex-start;
-    gap: 15px;
-    position: relative;
-}
-.station-left {
-    position: relative;
-    width: 60px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.station-circle {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-family: monospace;
-    font-size: 12px;
-    line-height: 1.2;
-    z-index: 2;
-    position: relative;
-    background-size: 100% 100%;
-}
-.station-circle::after {
-    content: '';
-    position: absolute;
-    width: 30px;
-    height: 1px;
-    background-color: #333;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-.station-double-color {
-    background: linear-gradient(to bottom, #f00 0%, #f00 50%, #00f 50%, #00f 100%);
-}
-.station-single-color {
-    background-color: #888;
-}
-.station-line {
-    width: 4px;
-    height: 30px; /* 连接线高度根据实际调整，这里用固定值示例，实际可能需要动态计算 */
-    background: linear-gradient(to bottom, #aaa 0%, #aaa 50%, #888 50%, #888 100%);
-    margin-top: -5px;
-    z-index: 1;
-}
-.station-right {
-    flex: 1;
-}
-.station-name-primary {
-    font-weight: 600;
-    font-size: 1.1rem;
-}
-.station-name-secondary {
-    font-size: 0.9rem;
-    color: #666;
-}
-.station-platform {
-    font-size: 0.85rem;
-    color: #444;
-    margin-top: 4px;
-}
-.station-time {
-    font-size: 0.9rem;
-    color: #777;
-    white-space: nowrap;
-    align-self: center;
-}
-.station-note {
-    position: absolute;
-    left: 0;
-    transform: translateX(-110%);
-    font-size: 0.85rem;
-    color: black;
-    background: rgba(255,255,255,0.8);
-    padding: 2px 6px;
-    border-radius: 4px;
-    white-space: nowrap;
-}
-/* 右侧面板高度适应 */
-.right-panel-detail {
-    width: 50%;
-    padding: 20px;
-    overflow-y: auto;
-    max-height: calc(100vh - 200px);
-}
-
-/* 暗色模式适配 */
-.dark .station-name-secondary {
-    color: #aaa;
-}
-.dark .station-platform {
-    color: #bbb;
-}
-.dark .station-time {
-    color: #999;
-}
-.dark .station-note {
-    background: #333;
-    color: #eee;
-}
-.dark .section-divider {
-    border-top-color: #666;
 }
