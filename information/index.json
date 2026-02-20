@@ -1,1 +1,15 @@
-[]
+[
+  {
+    "line_code": "lhmtr-kc-local1",
+    "line_name": "绿铁港城线|LHMTR Kong City Line",
+    "destination": "往珂华|To Kehua",
+    "company_code": "lhmtr",
+    "company": "绿海铁道|LHMTR",
+    "service_type": "local",
+    "service": "全程各停|Full Local",
+    "line_color_1": "#FF8A00",
+    "service_color": "#00CCFF",
+    "builder": "DarkMasterXPGD|DarkMasterXPGD",
+    "train": false
+  }
+]
