@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(err => {
             document.getElementById('leftPanelDetail').innerHTML = '<p class="error">线路信息加载失败</p>';
+            console.error(err);
         });
 
     // 过滤有效的线路颜色
@@ -66,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
         colorBar.innerHTML = '';
         if (colors.length === 0) {
             colorBar.style.backgroundColor = '#888';
-            colorBar.style.display = 'block'; // 恢复为块级
+            colorBar.style.display = 'block';
         } else if (colors.length === 1) {
             colorBar.style.backgroundColor = colors[0];
             colorBar.style.display = 'block';
@@ -97,7 +98,8 @@ document.addEventListener('DOMContentLoaded', function() {
     function renderStations(data) {
         const container = document.getElementById('stationsScrollable');
         const stations = data.stations || {};
-        const stationIds = Object.keys(stations).sort((a, b) => stations[a].station_number - stations[b].station_number);
+        // 按插入顺序显示，不排序
+        const stationIds = Object.keys(stations);
         if (stationIds.length === 0) {
             container.innerHTML = '<p class="text-gray-500 p-4">无车站信息</p>';
             return;
@@ -114,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const stationNumber = s.station_number || '';
             const stopTime = s.stop_time || '';
             const platform = s.platform || '';
-            const note = s.note || '';  // note 非必填，如果不存在则为空字符串
+            const note = s.note || '';
 
             // 圆形样式
             const circleStyle = directly 
