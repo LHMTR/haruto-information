@@ -15,7 +15,7 @@
   "train": false,
   "stations": {
     "haigang_village": {
-      "station_name": "海港村庄|Haigang Village",
+      "station_name": "海港村庄|Haigang Village", 
       "directly": false,
       "color1": "#FF8A00",
       "line_number": "KC",
