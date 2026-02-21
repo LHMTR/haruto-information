@@ -3,16 +3,23 @@ name: Generate Index and HTML Pages
 on:
   push:
     paths:
-      - 'information/**'
+      - 'information/**'        # 监控 information/ 下的所有文件变更
     branches:
-      - main
+      - main                     # 仅在推送到 main 分支时触发
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    # 显式授予工作流写入权限，以便创建分支和 PR
+    permissions:
+      contents: write
+      pull-requests: write
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0          # 拉取完整历史，便于后续操作
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -34,4 +41,4 @@ jobs:
           body: "This PR was automatically created by GitHub Actions after changes to `information/`."
           branch: auto-update-${{ github.run_number }}
           base: main
-          delete-branch: true
+          delete-branch: true      # PR 合并后自动删除临时分支
