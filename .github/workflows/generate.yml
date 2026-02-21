@@ -42,7 +42,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "Auto-generate index.json and HTML pages [skip ci]"
           title: "Auto-generated: Update index.json and HTML pages"
-          body: "This PR was automatically created by GitHub Actions after changes to \`information\`."
+          body: "This PR was automatically created by GitHub Actions after changes to `information`."
           branch: auto-update-${{ github.run_number }}
           base: main
           delete-branch: true
