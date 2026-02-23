@@ -1,4 +1,5 @@
 // main.js - 首页逻辑（含不筛选按钮、按 line_code 排序）
+// 适用于主页及详情页右侧面板（跳转使用绝对路径）
 
 document.addEventListener('DOMContentLoaded', function() {
     // ----- 原有功能（侧边栏、移动端菜单等）-----
@@ -107,11 +108,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ----- 列表页逻辑（含不筛选按钮）-----
     if (document.getElementById('trainsContainer')) {
-        // 修改为绝对路径，适用于子路径 /haruto-information/
+        // 绝对路径（适用于子目录 /haruto-information/）
         const DATA_SOURCE_URL = '/haruto-information/information/index.json';
         let allLines = [];
         let filteredLines = [];
-        let currentGroupBy = 'none';  // 默认不筛选
+        let currentGroupBy = 'none';
         let searchTerm = '';
 
         const container = document.getElementById('trainsContainer');
@@ -120,9 +121,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const viewServiceBtn = document.getElementById('viewServiceBtn');
         const searchInput = document.getElementById('searchInput');
 
-        const preferredLang = getPreferredLanguage(); // 来自 language.js
+        const preferredLang = getPreferredLanguage();
 
-        // 十六进制颜色正则
         const hexColorRegex = /^#([0-9A-F]{3}|[0-9A-F]{6})$/i;
 
         async function loadData() {
@@ -161,7 +161,6 @@ document.addEventListener('DOMContentLoaded', function() {
             return groups;
         }
 
-        // 辅助函数：过滤有效的十六进制颜色
         function getValidColors(item) {
             const colors = [];
             if (item.line_color_1 && hexColorRegex.test(item.line_color_1)) colors.push(item.line_color_1);
@@ -170,19 +169,16 @@ document.addEventListener('DOMContentLoaded', function() {
             return colors;
         }
 
-        // 生成线路颜色渐变（基于有效颜色数量平均分配）
         function getLineColorGradient(item) {
             const colors = getValidColors(item);
             if (colors.length === 0) return '#888';
             if (colors.length === 1) return colors[0];
-            // 平均分配宽度
             const total = colors.length;
             const percentage = 100 / total;
             const stops = colors.map((c, i) => `${c} ${i * percentage}%, ${c} ${(i + 1) * percentage}%`).join(', ');
             return `linear-gradient(to bottom, ${stops})`;
         }
 
-        // 渲染卡片（不分组时使用）
         function renderCards(items) {
             let cardsHtml = '';
             items.forEach(item => {
@@ -193,12 +189,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 const builder = getBilingualText(item.builder, preferredLang);
                 const depot = getBilingualText(item.depot, preferredLang);
 
-                // 构建建设者字符串
                 const builderText = builder.primary ? `由 ${builder.primary} 建设` : '';
 
-                // 构建第二行内容：服务名称（粗体） + 公司 + 建设者 + 车厂（如果存在）
                 let secondLineHtml = `
-                    <span class="service-color-dot" style="background-color: ${item.service_color || '#aaa'};"></span>
+                    <span class="service-color-dot" style="background-color: ${item.service_color || '#FFFFFF'};"></span>
                     <span class="service-name-bold">${serviceName.primary}</span>
                     <span class="service-company">${company.primary}</span>
                 `;
@@ -209,7 +203,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     secondLineHtml += `<span class="service-depot">${depot.primary}</span>`;
                 }
 
-                // 列车警告
                 const noTrainWarning = (item.train === false) ? `<div class="no-train-warning"><i class="fa fa-exclamation-triangle"></i> ${getNoTrainMessage(preferredLang)}</div>` : '';
 
                 cardsHtml += `
@@ -267,10 +260,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
             container.innerHTML = html;
 
+            // 卡片点击跳转：使用绝对路径，确保在任何页面都能正确跳转
             document.querySelectorAll('.train-card').forEach(card => {
                 card.addEventListener('click', () => {
                     const code = card.dataset.linecode;
-                    window.location.href = `pages/${code}.html?lang=${preferredLang}`;
+                    window.location.href = `/haruto-information/pages/${code}.html?lang=${preferredLang}`;
                 });
             });
         }
