@@ -1,0 +1,35 @@
+name: Sync index.html with index_zh-hans.html
+
+on:
+  push:
+    paths:
+      - 'index_zh-hans.html'   # 仅当 index_zh-hans.html 发生变化时触发
+    branches:
+      - main                   # 仅在 main 分支推送时运行
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write          # 允许提交代码
+      pull-requests: write     # 允许创建 PR
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0       # 获取完整历史，便于后续操作
+
+      - name: Copy index_zh-hans.html to index.html
+        run: cp index_zh-hans.html index.html
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "Sync index.html with index_zh-hans.html [skip ci]"
+          title: "Sync index.html with latest index_zh-hans.html"
+          body: "This PR synchronizes `index.html` to match the changes in `index_zh-hans.html`."
+          branch: sync-index-${{ github.run_number }}
+          base: main
+          delete-branch: true
